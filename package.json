@@ -1,0 +1,19 @@
+{
+  "name": "moviebookingapp-backend",
+  "version": "1.0.0",
+  "description": "backend app for movie booking",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "yes"
+  },
+  "author": "Buvi",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}
