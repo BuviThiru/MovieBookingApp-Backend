@@ -54,5 +54,5 @@ const movieSchema = new mongoose.Schema({
         default : Date.now()
     }})
 
-    const movieModel = mongoose.model("Movie",movieSchema);
-    module. exports = movieModel
+    module. exports  = mongoose.model("Movie",movieSchema);
+   

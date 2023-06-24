@@ -1,4 +1,4 @@
-{getAllTicketsSer,getMovieByIDSer,createMovieSer,deleteMovieSer,updateMovieSer}
+
 const Movie = require("../models/movie.model")
 
 exports.getAllMoviesSer = async() =>{

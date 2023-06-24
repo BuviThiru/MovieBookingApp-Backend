@@ -14,7 +14,10 @@ app.use((req, res, next) => {
     next();
   });
 
-
+const movieRoutes = require('./routes/movie.routes')
+const theatreRoutes = require('./routes/theatre.routes')
+movieRoutes(app);
+theatreRoutes(app);
 
   app.listen(PORT, ()=>{
     console.log(PORT,DBURL)
