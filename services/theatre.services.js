@@ -3,9 +3,9 @@ getAllTheatresSer,getTheatreByIdSer,createTheatreSer,updateTheatreSer,deleteThea
 const Theatre = require('../models/theatre.model')
 
 
-exports.getAllTheatresSer = async() =>{
+exports.getAllTheatresSer = async(filter) =>{
     try{
-        const theatre = await Theatre.find()
+        const theatre = await Theatre.find(filter)
         return theatre;
     }catch(error){
         console.log(error);

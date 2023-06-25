@@ -2,7 +2,7 @@ const {getAllTheatresSer,getTheatreByIdSer,createTheatreSer,updateTheatreSer,del
 
 exports.getAllTheatres = async (req, res) => {
     try {
-      const response = await getAllTheatresSer();
+      const response = await getAllTheatresSer(req.query);
       if (response.error || !response) {
         return res.status(401).send({
           Message: response.error,
