@@ -1,13 +1,21 @@
 
 const Movie = require("../models/movie.model")
 
-exports.getAllMoviesSer = async() =>{
+exports.getAllMoviesSer = async(name) =>{
+    let movies;
     try{
-        const movies = await Movie.find()
-        return movies
+        if(name){
+            movies = await Movie.find(name)
+            return movies           
+        }
+        else{
+            movies = await Movie.find();
+            return movies
+        } 
+      
     }catch(error){
         console.log(error)
-        return error
+        return {error : error.message}
     }  
 }
 
@@ -17,11 +25,12 @@ exports.getMovieByIDSer = async(idSent) =>{
         return movies
     }catch(error){
         console.log(error)
-        return error
+        return {error : error.message}
     }  
 }
 
-exports.createMovieSer = async(movieData) =>{
+exports.createMovieSer = async(data) =>{
+
     try{
         const newMovie = {
             name: data.name,
@@ -40,7 +49,7 @@ exports.createMovieSer = async(movieData) =>{
         return movies
     }catch(error){
         console.log(error)
-        return error
+        return {error : error.message}
     }  
 }
 
@@ -50,7 +59,7 @@ exports.deleteMovieSer = async(idSent) =>{
         return movies
     }catch(error){
         console.log(error)
-        return error
+        return {error : error.message}
     }  
 }
 
@@ -73,7 +82,7 @@ exports. updateMovieSer = async(idSent,updateData)=>{
      return updatedMovie
   }catch(error){
     console.log(error);
-    return error
+    return {error : error.message}
   }
 }
 

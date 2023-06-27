@@ -1,4 +1,4 @@
-getAllTheatresSer,getTheatreByIdSer,createTheatreSer,updateTheatreSer,deleteTheatreSer
+
 
 const Theatre = require('../models/theatre.model')
 

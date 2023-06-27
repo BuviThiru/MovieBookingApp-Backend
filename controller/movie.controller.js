@@ -2,10 +2,10 @@ const {getAllMoviesSer,getMovieByIDSer,createMovieSer,deleteMovieSer,updateMovie
 
 exports.getAllMovies = async (req, res) => {
   try {
-    const response = await getAllMoviesSer();
+    const response = await getAllMoviesSer(req.query);
     if (response.error || !response) {
       return res.status(401).send({
-        Message: response.error,
+        Error: response.error,
       });
     }else{
         return res.status(200).send({
@@ -20,10 +20,10 @@ exports.getAllMovies = async (req, res) => {
 
 exports.getMovieByID = async (req, res) => {
     try {
-      const response = await getMovieByIDSer(req.params);
+      const response = await getMovieByIDSer(req.params.id);
       if (response.error || !response) {
         return res.status(401).send({
-          Message: response.error,
+          Error: response.error,
         });
       }else{
           return res.status(200).send({
@@ -42,7 +42,7 @@ exports.getMovieByID = async (req, res) => {
       const response = await createMovieSer(req.body);
       if (response.error || !response) {
         return res.status(401).send({
-          Message: response.error,
+          Error: response.error,
         });
       }else{
           return res.status(200).send({
@@ -57,10 +57,10 @@ exports.getMovieByID = async (req, res) => {
 
   exports.updateMovie = async (req, res) => {
     try {
-      const response = await updateMovieSer(req.params,req.body);
+      const response = await updateMovieSer(req.params.id,req.body);
       if (response.error || !response) {
         return res.status(401).send({
-          Message: response.error,
+          Error: response.error,
         });
       }else{
           return res.status(200).send({
@@ -76,10 +76,10 @@ exports.getMovieByID = async (req, res) => {
   
   exports.deleteMovie = async (req, res) => {
     try {
-      const response = await deleteMovieSer(req.params);
+      const response = await deleteMovieSer(req.params);    
       if (response.error || !response) {
         return res.status(401).send({
-          Message: response.error,
+          Error: response.error,
         });
       }else{
           return res.status(200).send({
