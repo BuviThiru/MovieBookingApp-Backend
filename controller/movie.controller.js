@@ -1,4 +1,4 @@
-const {getAllMoviesSer,getTheatreListSer,getMovieByIDSer,createMovieSer,deleteMovieSer,updateMovieSer,getTheatreListSer} = require('../services/movie.services')
+const {getAllMoviesSer,getMovieByIDSer,createMovieSer,deleteMovieSer,updateMovieSer,getTheatreListSer} = require('../services/movie.services')
 
 exports.getAllMovies = async (req, res) => {
   try {
@@ -92,7 +92,7 @@ exports.getMovieByID = async (req, res) => {
     }
   };
 
-  const getThearesList = async(req,res)=>{
+  exports. getTheatresList = async(req,res)=>{
     try{
         const response = await getTheatreListSer(req.params.id)
         if (response.error || !response) {

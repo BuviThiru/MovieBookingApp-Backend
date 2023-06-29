@@ -1,5 +1,5 @@
 const Theatre = require('../models/theatre.model');
-const Movie = require('../models/movie.model')
+const Movie = require('../models/movie.model');
 
 
 exports.getAllTheatresSer = async(filter) =>{
@@ -69,14 +69,64 @@ exports. updateTheatreSer = async(idSent,data)=>{
     return error
   }
 }
+const addMoviesInTheatre = async (theatreId, movieIds) => {
+    try {
+        const theatre = await Theatre.findById(theatreId);
+
+        if (!theatre) {
+          throw new Error('Theatre not found');
+        }
+    
+        const existingMovies = await Movie.find({ _id: { $in: movieIds } });
+    
+        const validMovieIds = existingMovies.map(movie => movie._id);
+    
+        const newMovies = validMovieIds.filter(id => !theatre.movies.includes(id));
+    
+        if (newMovies.length === 0) {
+          throw new Error('No new movies to add');
+        }
+    
+        theatre.movies.push(...newMovies);
+    
+        const updatedTheatre = await theatre.save();
+    
+        return updatedTheatre;
+    } catch (error) {
+      console.log(error);
+      return { error: error.message };
+    }
+  }; 
+  
+  
+
+
+  const deleteMoviesInTheatre = async (theatreId, movieIds) => {
+    try {
+      const theatre = await Theatre.findByIdAndUpdate(
+        theatreId,
+        { $pullAll: { movies: movieIds } },
+        { new: true }
+      );
+  
+      if (!theatre) {
+        throw new Error('Theatre not found');
+      }
+  
+      return theatre;
+    } catch (error) {
+      console.log(error);
+      return { error: error.message };
+    }
+  };
 
 exports. updateMoviesInTheatreSer = async(theatreId,data) =>{
     try{
         const theatre = await Theatre.findOne({_id:theatreId});
         let response;
         if(theatre){
-             response = await addMoviesInTheatre(theatreId,data.addMovieIds);
-             response = await deleteMoviesInTheatre(theatreId,data.removeMovieIds)
+             if(data.addMovieIds)response = await addMoviesInTheatre(theatreId,data.addMovieIds);
+             if(data.removeMovieIds)response = await deleteMoviesInTheatre(theatreId,data.removeMovieIds)
             return response         
         }else{
             throw new Error("Invalid theatre Id")
@@ -89,28 +139,7 @@ exports. updateMoviesInTheatreSer = async(theatreId,data) =>{
 
 
 
-const addMoviesInTheatre = async(theatreId,movieIds) => {
-    try {
-        const theatre = await Theatre.findOneAndUpdate({_id:theatreId}, {$pushAll :{movies : movieIds}})
-            return theatre
-    }  catch(error){
-        console.log(error)
-        return {error : error.message}
-    }  
-}
 
-
-
-
-const deleteMoviesInTheatre = async(theatreId,movieIds) => {
-    try {
-        const theatre = await Theatre.findOneAndUpdate({_id:theatreId}, {$pullAll :{movies : movieIds}})
-            return theatre
-    }  catch(error){
-        console.log(error)
-        return {error : error.message}
-    }  
-}
 
 exports.checkMovieInATheatreSer = async(theatreId, movieId) =>{
     try{

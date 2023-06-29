@@ -4,6 +4,8 @@ exports.getAllTheatres = async (req, res) => {
     try {
       const response = await getAllTheatresSer(req.query);
       if (response.error || !response) {
+
+
         return res.status(401).send({
           Message: response.error,
         });
@@ -95,7 +97,7 @@ exports.getAllTheatres = async (req, res) => {
 
     exports.updateMoviesInTheatre = async(req,res)=>{
       try {
-        const response = await updateMoviesInTheatreSer(req.params.id,req.body);
+            const response = await updateMoviesInTheatreSer(req.params.id,req.body);
         if (response.error || !response) {
           return res.status(401).send({
             Message: response.error,
