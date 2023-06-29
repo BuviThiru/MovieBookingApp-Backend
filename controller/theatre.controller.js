@@ -9,7 +9,7 @@ exports.getAllTheatres = async (req, res) => {
         });
       }else{
           return res.status(200).send({
-              Message: "Successfully fetched all the movies",
+              Message: "Successfully fetched all the theatres",
               Response : response
           })
       }
@@ -20,14 +20,14 @@ exports.getAllTheatres = async (req, res) => {
   
   exports. getTheatreById = async (req, res) => {
       try {
-        const response = await getTheatreByIdSer(req.params);
+        const response = await getTheatreByIdSer(req.params.id);
         if (response.error || !response) {
           return res.status(401).send({
             Message: response.error,
           });
         }else{
             return res.status(200).send({
-                Message: "Successfully fetched movie by ID",
+                Message: "Successfully fetched theatre by ID",
                 Response : response
             })
         }
@@ -57,7 +57,7 @@ exports.getAllTheatres = async (req, res) => {
   
     exports.updateTheatre = async (req, res) => {
       try {
-        const response = await updateTheatreSer(req.params,req.body);
+        const response = await updateTheatreSer(req.params.id,req.body);
         if (response.error || !response) {
           return res.status(401).send({
             Message: response.error,
@@ -76,7 +76,7 @@ exports.getAllTheatres = async (req, res) => {
     
     exports.deleteTheatre = async (req, res) => {
       try {
-        const response = await deleteTheatreSer(req.params);
+        const response = await deleteTheatreSer(req.params.id);
         if (response.error || !response) {
           return res.status(401).send({
             Message: response.error,

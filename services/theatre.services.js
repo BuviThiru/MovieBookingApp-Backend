@@ -9,7 +9,7 @@ exports.getAllTheatresSer = async(filter) =>{
         return theatre;
     }catch(error){
         console.log(error);
-        return error;
+        return {error : error.message}
     }  
 }
 
@@ -19,11 +19,11 @@ exports.getTheatreByIdSer = async(idSent) =>{
         return theatre;
     }catch(error){
         console.log(error);
-        return error;
+        return {error : error.message}
     }  
 }
 
-exports.createTheatreSer = async(theatreData) =>{
+exports.createTheatreSer = async(data) =>{
     try{
         const newTheatre = {
             name: data.name,
@@ -38,7 +38,7 @@ exports.createTheatreSer = async(theatreData) =>{
         return theatre;
     }catch(error){
         console.log(error)
-        return error
+        return {error : error.message}
     }  
 }
 
@@ -48,11 +48,11 @@ exports.deleteTheatreSer = async(idSent) =>{
         return theatre;
     }catch(error){
         console.log(error)
-        return error
+        return {error : error.message}
     }  
 }
 
-exports. updateTheatreSer = async(idSent,updateData)=>{
+exports. updateTheatreSer = async(idSent,data)=>{
   try{
     const theatre = await Theatre.findOne({_id:idSent})
     theatre.name = data.name || theatre.name;
@@ -63,10 +63,10 @@ exports. updateTheatreSer = async(idSent,updateData)=>{
     theatre.city = data.city || theatre.city;
     theatre.pincode = data.pincode || theatre.pincode;
 
-    const updatedTheatre= await Theatre.findOneAndUpdate({_id:idSent},movie,{new:true})
+    const updatedTheatre= await Theatre.findOneAndUpdate({_id:idSent},theatre,{new:true})
      return updatedTheatre;
   }catch(error){
-    console.log(error);
+    return {error : error.message}
     return error
   }
 }

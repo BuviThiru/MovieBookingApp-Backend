@@ -42,7 +42,12 @@ const movieSchema = new mongoose.Schema({
     director:{
         type: [String],
         require: true
-    },createdAt :{
+    },
+    theares: {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref:"Theatre"
+    },
+    createdAt :{
         type : Date,
         required :true,
         default:Date.now(),
