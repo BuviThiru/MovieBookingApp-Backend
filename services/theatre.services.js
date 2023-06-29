@@ -1,6 +1,5 @@
-
-
-const Theatre = require('../models/theatre.model')
+const Theatre = require('../models/theatre.model');
+const Movie = require('../models/movie.model')
 
 
 exports.getAllTheatresSer = async(filter) =>{
@@ -69,4 +68,69 @@ exports. updateTheatreSer = async(idSent,data)=>{
     return {error : error.message}
     return error
   }
+}
+
+exports. updateMoviesInTheatreSer = async(theatreId,data) =>{
+    try{
+        const theatre = await Theatre.findOne({_id:theatreId});
+        let response;
+        if(theatre){
+             response = await addMoviesInTheatre(theatreId,data.addMovieIds);
+             response = await deleteMoviesInTheatre(theatreId,data.removeMovieIds)
+            return response         
+        }else{
+            throw new Error("Invalid theatre Id")
+        }
+    }catch(error){
+        console.log(error)
+        return {error : error.message}
+    }  
+}
+
+
+
+const addMoviesInTheatre = async(theatreId,movieIds) => {
+    try {
+        const theatre = await Theatre.findOneAndUpdate({_id:theatreId}, {$pushAll :{movies : movieIds}})
+            return theatre
+    }  catch(error){
+        console.log(error)
+        return {error : error.message}
+    }  
+}
+
+
+
+
+const deleteMoviesInTheatre = async(theatreId,movieIds) => {
+    try {
+        const theatre = await Theatre.findOneAndUpdate({_id:theatreId}, {$pullAll :{movies : movieIds}})
+            return theatre
+    }  catch(error){
+        console.log(error)
+        return {error : error.message}
+    }  
+}
+
+exports.checkMovieInATheatreSer = async(theatreId, movieId) =>{
+    try{
+        const theatre = await Theatre.findOne({_id:theatreId})
+        if(theatre){
+            const movie = await Movie.findOne({_id:movieId})
+            if(!movie){
+                throw new Error("Invalid movie Id");
+            }
+            const successMessage = "Movie is present in given theatre";
+            const failureMessage =  "Movie is not present in given theatre";
+            const response =  theatre.movies.includes(movieId) ? successMessage : failureMessage
+            return response;               
+            
+    }else{
+        throw new Error("Invalid theatre Id");
+    }
+
+    }catch(error){
+        console.log(error)
+        return {error : error.message}
+    }  
 }

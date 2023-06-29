@@ -1,4 +1,4 @@
-const {getAllTheatresSer,getTheatreByIdSer,createTheatreSer,updateTheatreSer,deleteTheatreSer} = require('../services/theatre.services')
+const {getAllTheatresSer,getTheatreByIdSer,createTheatreSer,updateTheatreSer,deleteTheatreSer,updateMoviesInTheatreSer,checkMovieInATheatreSer} = require('../services/theatre.services')
 
 exports.getAllTheatres = async (req, res) => {
     try {
@@ -91,3 +91,42 @@ exports.getAllTheatres = async (req, res) => {
         console.log(error)
       }
     };
+
+
+    exports.updateMoviesInTheatre = async(req,res)=>{
+      try {
+        const response = await updateMoviesInTheatreSer(req.params.id,req.body);
+        if (response.error || !response) {
+          return res.status(401).send({
+            Message: response.error,
+          });
+        }else{
+            return res.status(200).send({
+                Message: "Successfully  deleted  the movie",
+                Response : response
+            })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+
+    exports.checkMovieInATheatre = async(req,res)=>{
+      try {
+        const response = await checkMovieInATheatreSer(req.params.theatreId,req.params.movieId);
+        if (response.error || !response) {
+          return res.status(401).send({
+            Message: response.error,
+          });
+        }else{
+            return res.status(200).send({
+                Message: "Successfully  deleted  the movie",
+                Response : response
+            })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
