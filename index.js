@@ -16,8 +16,10 @@ app.use((req, res, next) => {
 
 const movieRoutes = require('./routes/movie.routes')
 const theatreRoutes = require('./routes/theatre.routes')
+const userRoutes = require('./routes/user.routes');
 movieRoutes(app);
 theatreRoutes(app);
+userRoutes(app);
 
   app.listen(PORT, ()=>{
     console.log(PORT,DBURL)
