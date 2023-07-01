@@ -43,7 +43,7 @@ const movieSchema = new mongoose.Schema({
         type: [String],
         require: true
     },
-    theares: {
+    theatres: {
         type : [mongoose.SchemaTypes.ObjectId],
         ref:"Theatre"
     },

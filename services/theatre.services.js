@@ -90,6 +90,10 @@ const addMoviesInTheatre = async (theatreId, movieIds) => {
         theatre.movies.push(...newMovies);
     
         const updatedTheatre = await theatre.save();
+        newMovies.map(async(movie)=>{
+         const movieUpdated = await Movie.findByIdAndUpdate({_id:movie},{$push : {theatres: theatreId}})
+        //  console.log(movieUpdated)
+        })
     
         return updatedTheatre;
     } catch (error) {
@@ -112,7 +116,10 @@ const addMoviesInTheatre = async (theatreId, movieIds) => {
       if (!theatre) {
         throw new Error('Theatre not found');
       }
-  
+      movieIds.map(async(movie)=>{
+        const movieUpdated = await Movie.findByIdAndUpdate({_id:movie},{$pull : {theatres: theatreId}})
+       
+       })
       return theatre;
     } catch (error) {
       console.log(error);

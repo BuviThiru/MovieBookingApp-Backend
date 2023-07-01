@@ -88,7 +88,9 @@ exports. updateMovieSer = async(idSent,updateData)=>{
 
 exports.getTheatreListSer=async(movieId)=>{
     try{
+        console.log(movieId)
         const movie = await Movie.findOne({_id: movieId});
+      
         return movie.theatres;
     }catch(error){
         console.log(error);
