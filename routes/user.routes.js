@@ -1,5 +1,5 @@
 const {signup,signin,updateUser,updateUserPassword,getAllUsers } = require('../controller/user.controller')
-const {validateSignInReq,validateSignupReq,verifyUpdatePasswordRequest,verifyUpdateUserInformationRequest} = require("../middlewares/validation.middlewares")
+const {validateSignInReq,validateSignupReq,verifyUpdatePasswordRequest,verifyUpdateUserInformationRequest} = require("../middlewares/userValidation.middlewares")
 const {isAuthenticated, isAdmin, isUserStatusApproved} = require('../middlewares/auth.middleware');
 
 
